@@ -10,28 +10,31 @@
 
 (defn- parse-position
   ""
-  [position-string]
-  (let [args   (split position-string #" *, *")
+  [^String position]
+  (let [args   (split position #" *, *")
         x      (Integer/parseInt (args 0))
         y      (Integer/parseInt (args 1))
         facing (keyword (lower-case (args 2)))]
     {:x x :y y :facing facing}))
 
 (defn- parse-command
-  ""
-  [command]
+  "Returns a function that when called executes the specified command on the robot."
+  [command current table]
   (let [halved      (split (trim command) #" +" 2)
         instruction (symbol (lower-case (first halved)))]
     (when-let [fun (ns-resolve 'robot.robot instruction)]
       (if (= @fun robot/place)
-        (partial fun (parse-position (second halved)))
-        fun))))
+        (partial fun (parse-position (second halved)) table)
+        (partial fun current table)))))
 
 (defn- run-command
   ""
   [command current table]
-  (when-let [fun (parse-command command)]
-    (fun current table)))
+  (try
+    (when-let [fun (parse-command command current table)]
+      (let [new (fun)]
+        (if-not (nil? new) new current)))
+    (catch Exception e current)))
 
 (defn- start-robot
   ""

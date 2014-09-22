@@ -12,38 +12,43 @@
        (contains? (set cardinal-directions) facing)))
 
 (defn- rotate
-  "Returns the current position rotated in the specified direction."
-  [current table direction]
-  (when (valid? current table)
+  "Returns the specified position rotated in the specified direction."
+  [position table direction]
+  (when (valid? position table)
     (let [delta   (get {:left -1 :right 1} direction 0)
           total   (count cardinal-directions)
-          cur-ind (.indexOf cardinal-directions (:facing current))
+          cur-ind (.indexOf cardinal-directions (:facing position))
           rot-ind (mod (+ cur-ind delta total) total)
           facing  (nth cardinal-directions rot-ind)]
-      (assoc current :facing facing))))
+      (assoc position :facing facing))))
 
 (defn place
   ""
-  [new current table]
-  (if (valid? new table) new current))
+  [position table]
+  (when (valid? position table) position))
 
 (defn move
   ""
-  [current table]
-  (when (valid? current table) current))
+  [position table]
+  (when (valid? position table)
+    (let [facing (:facing position)
+          delta  ({:north [0 1] :east [1 0] :south [0 -1] :west [-1 0]} facing)
+          result (map + [(:x position) (:y position)] delta)
+          new    {:x (first result) :y (second result) :facing facing}]
+      (if (valid? new table) new position))))
 
 (defn left
   ""
-  [current table]
-  (rotate current table :left))
+  [position table]
+  (rotate position table :left))
 
 (defn right
   ""
-  [current table]
-  (rotate current table :right))
+  [position table]
+  (rotate position table :right))
 
 (defn report
   ""
-  [{:keys [x y facing] :as current} table]
-  (when (valid? current table)
+  [{:keys [x y facing] :as position} table]
+  (when (valid? position table)
     (println (str x ", " y ", " (upper-case (name facing))))))
