@@ -8,6 +8,15 @@
 
 (defconfig conf (io/resource "config.edn"))
 
+(defn- parse-position
+  ""
+  [position-string]
+  (let [args   (split position-string #" *, *")
+        x      (Integer/parseInt (args 0))
+        y      (Integer/parseInt (args 1))
+        facing (keyword (lower-case (args 2)))]
+    {:x x :y y :facing facing}))
+
 (defn- parse-command
   ""
   [command]
@@ -15,11 +24,7 @@
         instruction (symbol (lower-case (first halved)))]
     (when-let [fun (ns-resolve 'robot.robot instruction)]
       (if (= @fun robot/place)
-        (let [args   (split (second halved) #" *, *")
-              x      (Integer/parseInt (args 0))
-              y      (Integer/parseInt (args 1))
-              facing (keyword (lower-case (args 2)))]
-          (partial fun ({:x x :y y :facing facing} command)))
+        (partial fun (parse-position (second halved)))
         fun))))
 
 (defn- run-command

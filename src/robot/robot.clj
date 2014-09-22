@@ -25,7 +25,7 @@
 (defn place
   ""
   [new current table]
-  (cond (valid? new table) new :else current))
+  (if (valid? new table) new current))
 
 (defn move
   ""
