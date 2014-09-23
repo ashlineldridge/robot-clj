@@ -13,7 +13,7 @@
                        :dependencies [[org.clojure/tools.namespace "0.2.6"]]}
              :test    {:resource-paths ["test_resources"]}}
 
-ß  :plugins [[lein-ancient "0.5.5"]]
+  :plugins [[lein-ancient "0.5.5"]]
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [jarohen/nomad "0.7.0"]])
