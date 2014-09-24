@@ -34,7 +34,7 @@
       (if-not (nil? new) new current))
     (catch Exception e current)))
 
-(defn- start-robot
+(defn start-robot
   ""
   [table]
   (loop [current nil command (read-line)]

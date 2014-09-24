@@ -10,8 +10,16 @@
 
   :profiles {:uberjar {:aot :all}
              :dev     {:source-paths ["dev"]
+                       :resource-paths ["test_resources"]
                        :dependencies [[org.clojure/tools.namespace "0.2.6"]]}
-             :test    {:resource-paths ["test_resources"]}}
+             :test    {:source-paths ["test_acceptance"]
+                       :resource-paths ["test_resources"]}}
+
+  :test-paths ["test" "test_acceptance"]
+
+  :test-selectors {:default #(not (:acceptance %))
+                   :acceptance :acceptance
+                   :all #(do true)}
 
   :plugins [[lein-ancient "0.5.5"]]
 
