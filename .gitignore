@@ -13,3 +13,4 @@ pom.xml.asc
 *.iml
 artifact-version.properties
 logs
+*.swp
