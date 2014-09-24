@@ -11,7 +11,7 @@ PLACE 0,1000000,WEST
 PLACE 0,0,NORTHY
 REPORT
 
-# Place the robot at the origin and move him to the northmost position
+# Place the robot at the origin and move him to the north-most position
 PLACE 0,0,NORTH
 REPORT
 MOVE
@@ -49,4 +49,54 @@ REPORT
 
 # Make the robot face east again
 RIGHT
+REPORT
+
+# Move the robot to the north east-most position
+MOVE
+MOVE
+MOVE
+MOVE
+REPORT
+
+# Attempting to move the robot again in the east direction will be ignored
+MOVE
+REPORT
+
+# Make the robot face south and attempt to move the robot off the end of the table
+RIGHT
+MOVE
+MOVE
+MOVE
+MOVE
+MOVE
+MOVE
+MOVE
+MOVE
+REPORT
+
+# Make the robot face west and attempt to move the robot off the end of the table
+RIGHT
+MOVE
+MOVE
+MOVE
+MOVE
+MOVE
+MOVE
+MOVE
+MOVE
+REPORT
+
+# Make the robot face north again (will be back at 0,0,NORTH)
+RIGHT
+REPORT
+
+# Attempt to induce an error and continuously check that the robot hasn't moved from the 0,0,NORTH
+PLACE
+REPORT
+PLACE    0, 1  ,
+REPORT
+REPORT2
+MOVED
+REPORT
+PLACE 99999999999999999999999999999999999999999,0,WEST
 REPORT

@@ -17,9 +17,9 @@
 
   :test-paths ["test" "test_acceptance"]
 
-  :test-selectors {:default #(not (:acceptance %))
+  :test-selectors {:default (complement :acceptance)
                    :acceptance :acceptance
-                   :all #(do true)}
+                   :all (fn [_] true)}
 
   :plugins [[lein-ancient "0.5.5"]]
 
