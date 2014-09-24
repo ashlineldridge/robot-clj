@@ -1,0 +1,52 @@
+# Non-command string such as this comment are ignored by the robot
+
+# The following commands do not constitute a valid PLACE command and so will be ignored
+MOVE
+MOVE
+HELLO
+LEFT
+RIGHT
+PLACE 0,5,EAST
+PLACE 0,1000000,WEST
+PLACE 0,0,NORTHY
+REPORT
+
+# Place the robot at the origin and move him to the northmost position
+PLACE 0,0,NORTH
+REPORT
+MOVE
+REPORT
+MOVE
+REPORT
+MOVE
+REPORT
+MOVE
+REPORT
+
+# Attempting to move the robot again in the north direction will be ignored
+MOVE
+REPORT
+
+# Make the robot spin clockwise
+RIGHT
+REPORT
+RIGHT
+REPORT
+RIGHT
+REPORT
+RIGHT
+REPORT
+
+# Make the robot spin anti-clockwise
+LEFT
+REPORT
+LEFT
+REPORT
+LEFT
+REPORT
+LEFT
+REPORT
+
+# Make the robot face east again
+RIGHT
+REPORT

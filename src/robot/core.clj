@@ -6,10 +6,8 @@
     [robot.robot :as robot])
   (:gen-class))
 
-(defconfig conf (io/resource "config.edn"))
-
 (defn- parse-position
-  ""
+  "Parses the position from the supplied string and returns it as a map"
   [^String position]
   (let [args   (split position #" *, *")
         x      (Integer/parseInt (args 0))
@@ -31,19 +29,22 @@
   ""
   [command current table]
   (try
-    (when-let [fun (parse-command command current table)]
+    (if-let [fun (parse-command command current table)]
       (let [new (fun)]
-        (if-not (nil? new) new current)))
+        (if-not (nil? new) new current))
+      current)
     (catch Exception e current)))
 
 (defn- start-robot
   ""
   [table]
-  (loop [command (read-line) current nil]
+  (loop [current nil command (read-line)]
     (when-not (nil? command)
-      (recur (read-line) (run-command command current table)))))
+      (recur (run-command command current table) (read-line)))))
 
 (defn -main
   "Entry point."
   [& args]
-  (start-robot (:table (conf))))
+  (defconfig conf (io/resource "config.edn"))
+  (start-robot (:table (conf)))
+  (System/exit 0))

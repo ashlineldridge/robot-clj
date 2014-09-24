@@ -51,4 +51,4 @@
   ""
   [{:keys [x y facing] :as position} table]
   (when (valid? position table)
-    (println (str x ", " y ", " (upper-case (name facing))))))
+    (println (str x "," y "," (upper-case (name facing))))))
