@@ -16,23 +16,22 @@
     {:x x :y y :facing facing}))
 
 (defn- parse-command
-  "Returns a function that when called executes the specified command on the robot."
+  "Returns a zero-arg function that when called executes the specified command on the robot."
   [command current table]
   (let [halved      (split (trim command) #" +" 2)
         instruction (symbol (lower-case (first halved)))]
-    (when-let [fun (ns-resolve 'robot.robot instruction)]
+    (if-let [fun (ns-resolve 'robot.robot instruction)]
       (if (= @fun robot/place)
         (partial fun (parse-position (second halved)) table)
-        (partial fun current table)))))
+        (partial fun current table))
+      (constantly nil))))
 
 (defn- run-command
   ""
   [command current table]
   (try
-    (if-let [fun (parse-command command current table)]
-      (let [new (fun)]
-        (if-not (nil? new) new current))
-      current)
+    (let [new ((parse-command command current table))]
+      (if-not (nil? new) new current))
     (catch Exception e current)))
 
 (defn- start-robot
