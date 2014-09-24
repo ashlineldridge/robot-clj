@@ -23,12 +23,14 @@
       (assoc position :facing facing))))
 
 (defn place
-  ""
+  "Instructs the robot to be placed at the specified position on the table.
+   Returns the resulting position of the robot."
   [position table]
   (when (valid? position table) position))
 
 (defn move
-  ""
+  "Instructs the robot to move one space forward based on the direction it is facing.
+   Returns the resulting position of the robot."
   [position table]
   (when (valid? position table)
     (let [facing (:facing position)
@@ -38,17 +40,19 @@
       (if (valid? new table) new position))))
 
 (defn left
-  ""
+  "Instructs the robot to turn left, altering the direction it is facing.
+   Returns the resulting position of the robot."
   [position table]
   (rotate position table :left))
 
 (defn right
-  ""
+  "Instructs the robot to turn report, altering the direction it is facing.
+   Returns the resulting position of the robot."
   [position table]
   (rotate position table :right))
 
 (defn report
-  ""
+  "Instructs the robot to turn report its current position to standard output."
   [{:keys [x y facing] :as position} table]
   (when (valid? position table)
     (println (str x "," y "," (upper-case (name facing))))))

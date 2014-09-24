@@ -27,7 +27,7 @@
       (constantly nil))))
 
 (defn- run-command
-  ""
+  "Runs the specified command against the table and return resulting position of the robot."
   [command current table]
   (try
     (let [new ((parse-command command current table))]
@@ -35,14 +35,14 @@
     (catch Exception e current)))
 
 (defn start-robot
-  ""
+  "Starts the robot by reading and processing a line at a time from standard input."
   [table]
   (loop [current nil command (read-line)]
     (when-not (nil? command)
       (recur (run-command command current table) (read-line)))))
 
 (defn -main
-  "Entry point."
+  "Application entry point."
   [& args]
   (defconfig conf (io/resource "config.edn"))
   (start-robot (:table (conf)))
