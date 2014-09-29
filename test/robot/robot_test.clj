@@ -7,7 +7,7 @@
 
 (defn gen-within-bounds
   [table]
-  "Returns a position generator within the bounds of the specified table."
+  "Returns a generator for generating positions within the bounds of the specified table."
   (gen/hash-map
     :x (gen/fmap #(mod % (:width table)) gen/pos-int)
     :y (gen/fmap #(mod % (:height table)) gen/pos-int)
@@ -15,7 +15,7 @@
 
 (defn gen-out-of-bounds
   [table]
-  "Returns a position generator oustide the bounds of the specified table."
+  "Returns a generator for generating positions oustide the bounds of the specified table."
   (gen/hash-map
     :x (gen/fmap #(+ (:width table) %) gen/pos-int)
     :y (gen/fmap #(+ (:height table) %) gen/pos-int)

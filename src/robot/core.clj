@@ -7,7 +7,7 @@
   (:gen-class))
 
 (defn- parse-position
-  "Parses the position from the supplied string and returns it as a map"
+  "Parses the position from the supplied string and returns it as a map."
   [^String position]
   (let [args   (split position #" *, *")
         x      (Integer/parseInt (args 0))
