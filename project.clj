@@ -13,7 +13,8 @@
                        :resource-paths ["test_resources"]
                        :dependencies [[org.clojure/tools.namespace "0.2.6"]]}
              :test    {:source-paths ["test_acceptance"]
-                       :resource-paths ["test_resources"]}}
+                       :resource-paths ["test_resources"]
+                       :dependencies [[org.clojure/test.check "0.5.9"]]}}
 
   :test-paths ["test" "test_acceptance"]
 
@@ -24,4 +25,5 @@
   :plugins [[lein-ancient "0.5.5"]]
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [jarohen/nomad "0.7.0"]])
+                 [jarohen/nomad "0.7.0"]
+                 [org.clojure/test.check "0.5.9"]])
